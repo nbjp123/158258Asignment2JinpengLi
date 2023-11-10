@@ -1,0 +1,182 @@
+﻿@{
+    ViewData["Title"] = "Pokemon World";
+}
+
+
+    <style >
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        color: #333;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .container {
+        text-align: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .header-image {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .region {
+        margin: 10px;
+        display: inline-block;
+        text-align: center;
+    }
+
+        .region img {
+            width: 200px;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+            .region img:hover {
+                transform: scale(1.05);
+            }
+
+    .region-name {
+        margin-top: 5px;
+        font-weight: bold;
+    }
+
+
+
+    .news-section {
+        text-align: left;
+        max-width: 80%;
+        margin-left: 350px;
+        margin-right: auto;
+    }
+
+    .news-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .news-image {
+        flex-basis: 30%;
+        margin-right: 0px;
+    }
+
+        .news-image img {
+            width: 60%;
+            height: auto;
+        }
+
+    .news-content {
+        flex-basis: 250%;
+    }
+
+    .news-title {
+        margin: 0;
+    }
+
+    .news-description {
+        margin: 0;
+    }
+</style>
+
+
+<div class="container">
+    <img class="header-image" src="~/Content/image/main2.jpg" alt="宝可梦" />
+
+
+
+    <div class="regions">
+        <div class="region">
+            <h2 class="region-title">Game catalog</h2>
+
+            <a href="https://localhost:44354/page4/index4">
+                <img src="~/Content/image/one.jpg" alt="Pokemon FireRed" />
+                <div class="region-name">Pokemon FireRed</div>
+            </a>
+        </div>
+        <div class="region">
+            <a href="https://localhost:44354/page5/index5">
+                <img src="~/Content/image/two.jpg" alt="Pokemon Sapphire" />
+                <div class="region-name">Pokemon Sapphire</div>
+            </a>
+        </div>
+        <div class="region">
+            <a href="https://localhost:44354/page6/index6">
+                <img src="~/Content/image/three.jpg" alt="Pokemon Pearl" />
+                <div class="region-name">Pokemon Pearl</div>
+            </a>
+        </div>
+        <div class="region">
+            <a href="https://localhost:44354/page7/index7">
+                <img src="~/Content/image/four.png" alt="Pokemon White" />
+                <div class="region-name">Pokemon White</div>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="section-item">
+    <a href="https://localhost:44354/page2/index2">
+        <img src="~/Content/images/tujian.jpg" alt="The Pokedex" />
+        <div class="section-name">Pokedex</div>
+    </a>
+</div>
+<div class="section-item">
+    <a href="https://wiki.52poke.com/wiki/%E9%81%93%E5%85%B7%E5%88%97%E8%A1%A8">
+        <img src="~/Content/images/daoju.jpg" alt="Prop introduction" />
+        <div class="section-name">Items</div>
+    </a>
+</div>
+<div class="section-item">
+    <a href="https://wiki.52poke.com/wiki/%E5%B1%9E%E6%80%A7%E7%9B%B8%E5%85%8B%E8%A1%A8">
+        <img src="~/Content/images/shuxing.jpg" alt="Attribute restraint table" />
+        <div class="section-name">Type chart</div>
+    </a>
+</div>
+</div>
+</div>
+
+
+<div class="news-section">
+    <h2 class="news-section-title">Latest News</h2>
+
+
+    <div class="news-item">
+        <div class="news-image">
+            <a href="https://localhost:44354/Home/Index">
+                <img src="~/Content/images/news1.jpg" alt="news1" />
+            </a>
+        </div>
+        <div class="news-content">
+            <a href="https://localhost:44354/Home/Index">
+                <h3 class="news-title">Pokemon Scarlet and Violet</h3>
+                <p class="news-description">Pokemon Scarlet and Violet The Hidden Treasure of Area Zero Part2 The Indigo Disk launchs on December 14th</p>
+            </a>
+        </div>
+    </div>
+    <div class="news-item">
+        <div class="news-image">
+            <a href="https://localhost:44354/Home/Index">
+                <img src="~/Content/images/news2.jpg" alt="news2" />
+            </a>
+        </div>
+        <div class="news-content">
+            <a href="https://localhost:44354/Home/Index">
+                <h3 class="news-title">Pokemon Scarlet and Violet</h3>
+                <p class="news-description">Pokemon Scarlet and Violet The Hidden Treasure of Area Zero Part1 The Green Mask has published</p>
+            </a>
+        </div>
+    </div>
+</div>

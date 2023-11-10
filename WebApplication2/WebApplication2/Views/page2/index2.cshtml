@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon World</title>
+    <style>
+        .poke-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .poke-card {
+            flex: 0 0 20%;
+            box-sizing: border-box;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+        }
+            .poke-card img {
+                width: 150px; 
+                height: 150px; 
+            }
+    </style>
+</head>
+<body>
+
+    <div>
+        <input type="text" id="searchInput" placeholder="search">
+        <button onclick="searchPokemon()">search</button>
+
+        <select id="type1Select" onchange="filterByType('type1')">
+            <option value="">Type 1</option>
+            <option value="Grass">Grass</option>
+            <option value="Water">Water</option>
+            <option value="Fire">Fire</option>
+            <option value="Electr">Electr</option>
+            <option value="Ice">Ice</option>
+            <option value="Rock">Rock</option>
+            <option value="Ground">Ground</option>
+            <option value="Flying">Flying</option>
+            <option value="Steel">Steel</option>
+            <option value="Psychc">Psychc</option>
+            <option value="Dark">Dark</option>
+            <option value="Bug">Bug</option>
+            <option value="Poison">Poison</option>
+            <option value="Fight">Fight</option>
+            <option value="Ghost">Ghost</option>
+            <option value="Normal">Normal</option>
+            <option value="Dragon">Dragon</option>
+
+
+        </select>
+
+        <select id="type2Select" onchange="filterByType('type2')">
+            <option value="">Type 2</option>
+            <option value="Grass">Grass</option>
+            <option value="Water">Water</option>
+            <option value="Fire">Fire</option>
+            <option value="Electr">Electr</option>
+            <option value="Ice">Ice</option>
+            <option value="Rock">Rock</option>
+            <option value="Ground">Ground</option>
+            <option value="Flying">Flying</option>
+            <option value="Steel">Steel</option>
+            <option value="Psychc">Psychc</option>
+            <option value="Dark">Dark</option>
+            <option value="Bug">Bug</option>
+            <option value="Poison">Poison</option>
+            <option value="Fight">Fight</option>
+            <option value="Ghost">Ghost</option>
+            <option value="Normal">Normal</option>
+            <option value="Dragon">Dragon</option>
+            <option value="Dragon">none</option>
+        </select>
+
+        <button onclick="resetSearch()">reset</button>
+        <button onclick="sortPokemons('asc')">Positive order</button>
+        <button onclick="sortPokemons('desc')">Reverse order</button>
+    </div>
+
+    <div id="pokeContainer" class="poke-container">
+    </div>
+
+    <div>
+        <button onclick="prevPage()">prevpage</button>
+        <span id="pageIndicator">1</span>
+        <button onclick="nextPage()">nextpage</button>
+
+    </div>
+
+    <script>
+        const pokemons = [
+            { id: 1, name: 'Bulbasaur', image: 'Content/image/Bulbasaur.jpg', type1: 'Grass', type2: 'Poison' },
+            { id: 2, name: 'Charmander', image: 'Content/image/xiaohuolong.jpg', type1: 'Fire', type2: 'none' },
+            { id: 3, name: 'Squirtle', image: 'Content/image/jienigui.jpg', type1: 'Water', type2: 'none' },
+            { id: 4, name: 'Pikachu', image: 'Content/image/pikaqiu.jpg', type1: 'Electr', type2: 'none' },
+            { id: 5, name: 'Mew', image: 'Content/image/menghuan.jpg', type1: 'Psychc', type2: 'none' },
+            { id: 6, name: 'Mewtwo', image: 'Content/image/chaomeng.jpg', type1: 'Psychc', type2: 'none' },
+            { id: 7, name: 'Dragonite', image: 'Content/image/kuailong.jpg', type1: 'Dragon', type2: 'Flying' },
+            { id: 8, name: 'Hydreigon', image: 'Content/image/sanshouelong.jpg', type1: 'Dragon', type2: 'Dark' },
+            { id: 9, name: 'Salamence', image: 'Content/image/baofeilong.jpg', type1: 'Dragon', type2: 'Flying' },
+            { id: 10, name: 'Beldum', image: 'Content/image/beldum.jpg', type1: 'Steel', type2: 'Psychc' },
+            { id: 11, name: 'Kyogre', image: 'Content/image/kyogre.jpg', type1: 'Water', type2: 'none' },
+            { id: 12, name: 'Groudon', image: 'Content/image/guladuo.jpg', type1: 'Ground', type2: 'none' },
+            { id: 13, name: 'Rayquaza', image: 'Content/image/liekongzuo.jpg', type1: 'Dragon', type2: 'Flying' },
+            { id: 14, name: 'Mudkip', image: 'Content/image/shuiyueyu.jpg', type1: 'Water', type2: 'none' },
+            { id: 15, name: 'Spiritomb', image: 'Content/image/guipenzai.jpg', type1: 'Ghost', type2: 'Dark' },
+            { id: 16, name: 'Dialga', image: 'Content/image/diyaluka.jpg', type1: 'Dragon', type2: 'Steel' },
+            { id: 17, name: 'Palkia', image: 'Content/image/paluqiya.jpg', type1: 'Dragon', type2: 'Water' },
+            { id: 18, name: 'Arceus', image: 'Content/image/aerzhousi.jpg', type1: 'Normal', type2: 'none' },
+            { id: 19, name: 'Giratina', image: 'Content/image/qiladina.jpg', type1: 'Dragon', type2: 'Ghost' },
+            { id: 20, name: 'Garchomp', image: 'Content/image/lieyaolusha.jpg', type1: 'Dragon', type2: 'Ground' },
+            { id: 21, name: 'Reshiram', image: 'Content/image/laixilamu.jpg', type1: 'Dragon', type2: 'Fire' },
+            { id: 22, name: 'Zekrom', image: 'Content/image/jiekeluomu.jpg', type1: 'Dragon', type2: 'Electr' },
+            { id: 23, name: 'Volcarona', image: 'Content/image/huoshene.jpg', type1: 'Fire', type2: 'Bug' },
+            { id: 24, name: 'Oshawott', image: 'Content/image/shuishuilan.jpg', type1: 'Water', type2: 'none' },
+
+
+        ];
+
+        let currentPage = 1;
+        const perPage = 20;
+        let filteredPokemons = [];
+
+        function displayPokemons(page, pokemonsToDisplay) {
+            const pokeContainer = document.getElementById('pokeContainer');
+            const startIndex = (page - 1) * perPage;
+            const selectedPokemons = pokemonsToDisplay.slice(startIndex, startIndex + perPage);
+
+            pokeContainer.innerHTML = '';
+            selectedPokemons.forEach(pokemon => {
+                pokeContainer.innerHTML += `
+            <div class="poke-card">
+                <h3>${pokemon.name}</h3>
+                <img src="${pokemon.image}" alt="${pokemon.name}">
+                <p>ID: ${pokemon.id}</p>
+                <p>Type 1: ${pokemon.type1}</p>
+                <p>Type 2: ${pokemon.type2}</p>
+            </div>
+        `;
+            });
+
+            document.getElementById('pageIndicator').innerText = `${page}/${Math.ceil(pokemonsToDisplay.length / perPage)}`;
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage -= 1;
+                displayPokemons(currentPage, filteredPokemons.length ? filteredPokemons : pokemons);
+            }
+        }
+
+        function nextPage() {
+            if (currentPage * perPage < (filteredPokemons.length ? filteredPokemons : pokemons).length) {
+                currentPage += 1;
+                displayPokemons(currentPage, filteredPokemons.length ? filteredPokemons : pokemons);
+            }
+        }
+
+        function searchPokemon() {
+            const searchValue = document.getElementById('searchInput').value.toLowerCase();
+            filteredPokemons = pokemons.filter(pokemon =>
+                pokemon.name.toLowerCase().includes(searchValue) ||
+                pokemon.id.toString().includes(searchValue)
+            );
+
+            if (filteredPokemons.length > 0) {
+                currentPage = 1;
+                displayPokemons(currentPage, filteredPokemons);
+            } else {
+                document.getElementById('pokeContainer').innerHTML = '<p>unfind</p>';
+                document.getElementById('pageIndicator').innerText = '0/0';
+            }
+
+        }
+
+        function resetSearch() {
+            filteredPokemons = [];
+            currentPage = 1;
+            displayPokemons(currentPage, pokemons);
+            document.getElementById('searchInput').value = '';
+            document.getElementById('type1Select').selectedIndex = 0; 
+            document.getElementById('type2Select').selectedIndex = 0; 
+            filteredPokemons = pokemons.slice();
+        }
+
+
+        function sortPokemons(order) {
+            const pokemonsToSort = filteredPokemons.length ? filteredPokemons : pokemons.slice(); 
+
+            if (order === 'asc') {
+                pokemonsToSort.sort((a, b) => a.id - b.id);
+            } else if (order === 'desc') {
+                pokemonsToSort.sort((a, b) => b.id - a.id);
+            }
+
+            filteredPokemons = pokemonsToSort; 
+            currentPage = 1;
+            displayPokemons(currentPage, filteredPokemons);
+        }
+
+
+        function filterByType(type) {
+            const selectedType = document.getElementById(`${type}Select`).value;
+            if (!selectedType) {
+                filteredPokemons = pokemons;
+            } else {
+                filteredPokemons = pokemons.filter(pokemon => pokemon[type] === selectedType);
+            }
+            currentPage = 1;
+            displayPokemons(currentPage, filteredPokemons);
+            filteredPokemons = pokemons.slice();
+        }
+        displayPokemons(currentPage, pokemons);
+    </script>
+</body>
+</html>
